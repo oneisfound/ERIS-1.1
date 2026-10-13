@@ -1,0 +1,167 @@
+/* index.css */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Placeholder text for contenteditable */
+[data-placeholder]:empty::before {
+  content: attr(data-placeholder);
+  color: #aaa;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+[contenteditable] {
+  position: relative;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+/* Drag preview clone floating */
+.drag-preview {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.85;
+  transform: rotate(1deg) scale(1.02);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  border-radius: 6px;
+  background: white;
+  padding: 6px 10px;
+  max-width: 400px;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: transform 0.05s ease;
+}
+
+.drag-preview.dark {
+  background: #2a2a2a;
+  color: #e8e8e6;
+}
+
+/* Drop indicator line */
+.drop-indicator {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: #2383e2;
+  pointer-events: none;
+  z-index: 100;
+  transform-origin: left center;
+  animation: dropIn 0.12s ease forwards;
+}
+
+.drop-indicator::before {
+  content: '';
+  position: absolute;
+  left: -3px;
+  top: -3px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #2383e2;
+}
+
+@keyframes dropIn {
+  from {
+    transform: scaleX(0.3);
+    opacity: 0;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+/* Block hover highlight */
+.block-row {
+  border-radius: 4px;
+  transition: background 0.08s ease;
+}
+
+.block-row:hover {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+/* Column resize handle */
+.col-resize-handle {
+  width: 16px;
+  flex-shrink: 0;
+  cursor: col-resize;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+  transition: opacity 0.15s;
+}
+
+.col-resize-handle::after {
+  content: '';
+  width: 2px;
+  height: 32px;
+  background: transparent;
+  border-radius: 2px;
+  transition: background 0.15s;
+}
+
+.col-resize-handle:hover::after,
+.col-resize-handle.active::after {
+  background: #2383e2;
+}
+
+/* Smooth block transitions */
+.block-list-inner > * {
+  transition: opacity 0.1s ease;
+}
+
+/* Sidebar item hover */
+.sidebar-item {
+  transition: background 0.08s ease;
+  border-radius: 6px;
+}
+
+.sidebar-item:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+/* No text selection while dragging */
+.is-dragging * {
+  user-select: none !important;
+}
